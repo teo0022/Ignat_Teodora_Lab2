@@ -32,6 +32,7 @@ public class EditModel : PageModel
         }
         Book = book;
         ViewData["PublisherID"] = new SelectList(_context.Set<Publisher>(), "ID", "PublisherName");
+        ViewData["AuthorID"] = new SelectList(_context.Set<Authors>().Select(a => new { a.ID, FullName = a.FirstName + " " + a.LastName }), "ID", "FullName");
         return Page();
     }
 

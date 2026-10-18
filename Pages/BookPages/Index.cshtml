@@ -38,7 +38,7 @@
                 @Html.DisplayFor(model => item.Title)
             </td>
             <td>
-                @Html.DisplayFor(model => item.Author)
+                @item.Author?.FirstName @item.Author?.LastName
             </td>
             <td>
                 @Html.DisplayFor(model => item.Price)

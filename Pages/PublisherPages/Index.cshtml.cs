@@ -18,6 +18,9 @@ public class IndexModel : PageModel
 
     public async Task OnGetAsync()
     {
-        Publisher = await _context.Publisher.ToListAsync();
+        Publisher = await _context.Publisher
+        .Include(p => p.Books)
+      
+        .ToListAsync();
     }
 }

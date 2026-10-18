@@ -29,7 +29,10 @@
                 @Html.DisplayFor(model => item.PublisherName)
             </td>
             <td>
-                @Html.DisplayFor(model => item.Books)
+                @foreach (var book in item.Books)
+                {
+                    <div>@book.Title</div>
+                }
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
