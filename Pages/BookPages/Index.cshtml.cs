@@ -15,7 +15,11 @@ public class IndexModel : PageModel
     }
 
     public IList<Book> Book { get; set; } = default!;
+    public BookData BookD { get; set; }
+    public int BookID { get; set; }
+    public int CategoryID { get; set; }
 
+<<<<<<< HEAD
     public string TitleSort { get; set; }
     public string AuthorSort { get; set; }
     public string CurrentFilter { get; set; }
@@ -29,10 +33,22 @@ public class IndexModel : PageModel
         Book = await _context.Book
             .Include(b => b.Publisher)
             .Include(b => b.Author)
+=======
+    public async Task OnGetAsync(int? id, int? categoryID)
+    {
+        BookD = new BookData();
+
+        BookD.Books = await _context.Book
+            .Include(b => b.Publisher)
+            .Include(b => b.Author)
+            .Include(b => b.BookCategories)
+                .ThenInclude(b => b.Category)
+>>>>>>> Laborator3
             .AsNoTracking()
             .OrderBy(b => b.Title)
             .ToListAsync();
 
+<<<<<<< HEAD
         if (!String.IsNullOrEmpty(searchString))
         {
             Book = Book.Where(s => s.Author.FirstName.Contains(searchString)
@@ -54,6 +70,14 @@ public class IndexModel : PageModel
             default:
                 Book = Book.OrderBy(s => s.Title).ToList();
                 break;
+=======
+        if (id != null)
+        {
+            BookID = id.Value;
+            Book book = BookD.Books
+                .Where(i => i.ID == id.Value).Single();
+            BookD.Categories = book.BookCategories.Select(s => s.Category);
+>>>>>>> Laborator3
         }
     }
 }
